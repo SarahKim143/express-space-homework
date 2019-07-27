@@ -2,6 +2,9 @@
 const express = require('express');
 const app = express();
 
+app.get('/', (req, res) => {
+ res.send('welcome from express server'); 
+})
 // run `npm install` to install dependencies in package.json
 
 // * Your mission is to complete the app
@@ -19,46 +22,22 @@ const app = express();
 
 // PORT
 const port = 3000;
+const marsMissions = require('./models/marsMissions.js');
 
 // DATA - put into marsMissions.js file inside of a models folder, for module.exports
 // remember to require it in the server
-const marsMissions = [
-  {
-    name: "Curiosity",
-    launchDate: "26 Nov 2011",
-    operator: "NASA",
-    missionType: "Rover",
-    img: ""
-  },
-  {
-    name: "Opportunity",
-    launchDate: "8 Jul 2003",
-    operator: "NASA",
-    missionType: "Rover",
-    img: ""
-  },
-  {
-    name: "Spirit",
-    launchDate: "10 Jun 2003",
-    operator: "NASA",
-    missionType: "Rover",
-    img: ""
-  },
-  {
-    name: "Sojourner",
-    launchDate: "4 Dec 1996",
-    operator: "NASA",
-    missionType: "Rover",
-    img: ""
-  },
-  {
-    name: "Rosetta",
-    launchDate: "2 Mar 2004",
-    operator: "ESA",
-    missionType: "Gravity Assist",
-    img: ""
-  }
-];
+app.get('/marsMissions', (req, res) => {
+  res.render('missions/index.ejs', {
+    missions: marsMissions
+  });
+});
+
+app.get('/marsMissions/:index', (req, res) => {
+  res.render('missions/show.ejs', {
+    missions: marsMissions[req.params.index]
+  });
+});
+
 
 // INDEX Route
 // send data to 'missions/index.ejs' view
