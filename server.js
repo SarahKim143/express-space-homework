@@ -2,9 +2,7 @@
 const express = require('express');
 const app = express();
 
-app.get('/', (req, res) => {
- res.send('welcome from express server'); 
-})
+app.set('view engine', 'ejs');
 // run `npm install` to install dependencies in package.json
 
 // * Your mission is to complete the app
@@ -22,33 +20,31 @@ app.get('/', (req, res) => {
 
 // PORT
 const port = 3000;
-const marsMissions = require('./models/marsMissions.js');
 
 // DATA - put into marsMissions.js file inside of a models folder, for module.exports
 // remember to require it in the server
-app.get('/marsMissions', (req, res) => {
-  res.render('missions/index.ejs', {
-    missions: marsMissions
-  });
-});
-
-app.get('/marsMissions/:index', (req, res) => {
-  res.render('missions/show.ejs', {
-    missions: marsMissions[req.params.index]
-  });
-});
-
+const marsMissions = require('./models/marsMissions.js');
 
 // INDEX Route
 // send data to 'missions/index.ejs' view
 // the view should display just the names of each mission
 // display the mission names as <li> in a <ul> with the class name "missions"
+app.get('/missions/', (req, res) => {
+  res.render('missions/index.ejs', {
+    missions: marsMissions
+  });
+});
 
 // SHOW Route
 // send data to 'missions/show.ejs' view
 // the view should display all the data for a single mission
 
 
+app.get('/missions/:id', (req, res) => {
+    res.render('missions/show.ejs', {
+      missions: marsMissions[req.params.id]
+    });
+  });
 
 // LISTENER
 app.listen(port, function() {
