@@ -5,12 +5,13 @@
         <title></title>
     </head>
     <body>
-        <h1>Missions index page</h1>
-        <ul class='missions'>
-            <% for(let i = 0; i < missions.length; i++) { %>
-             <li><a href="/missions/<%=i%>"><%=fruits[i].name;%></a>
-        <% } %>
-
+        <h1>Missions List</h1>
+        <ul class="missions">
+            <% for(let i = 0; i < missions.length; i++){ %>
+                <li>
+            <a href="/missions/<%=i%>"><%=missions[i].name; %></a> 
+            <% } %>
+                </li>
         </ul>
     </body>
 </html>
